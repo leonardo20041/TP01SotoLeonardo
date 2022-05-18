@@ -12,49 +12,25 @@ import ar.edu.unju.edm.model.P4MesesModel;
 public class P4MesesController {
 	
 	@Autowired P4MesesModel mes;
-	@GetMapping("/mes")
+	@GetMapping("/meses")
 	public ModelAndView getMes (@RequestParam (name = "mes1") int mes1, @RequestParam (name = "mes2") int mes2, @RequestParam (name = "mes3") int mes3)
 	{
 		ModelAndView modelView = new ModelAndView("resultadoMes");
 		String mensaje;
-		if((mes1 > 12) || (mes1 <= 0))
-		{
-			mensaje = "1No existe ese mes";
-			modelView.addObject("mensaje1", mensaje);
-			modelView.addObject("mes1", mes1);
-		}
-		else
-		{
-			mensaje = mes.meses(mes1);
-			modelView.addObject("mensaje1", mensaje);
-			modelView.addObject("mes1", mes1);
-		}
+		mes.setMes1(mes1);
+		mensaje = mes.meses(mes.getMes1());
+		modelView.addObject("mensaje1", mensaje);
+		modelView.addObject("mes1", mes1);
 		
-		if((mes2 > 12) || (mes2 <= 0))
-		{
-			mensaje = "2No existe ese mes";
-			modelView.addObject("mensaje2", mensaje);
-			modelView.addObject("mes2", mes2);
-		}
-		else
-		{
-			mensaje = mes.meses(mes2);
-			modelView.addObject("mensaje2", mensaje);
-			modelView.addObject("mes2", mes2);
-		}
+		mes.setMes2(mes2);
+		mensaje = mes.meses(mes.getMes2());
+		modelView.addObject("mensaje2", mensaje);
+		modelView.addObject("mes2", mes2);
 		
-		if((mes3 > 12) || (mes3 <= 0))
-		{
-			mensaje = "3No existe ese mes";
-			mensaje = mes.meses(mes3);
-			modelView.addObject("mensaje3", mensaje);
-		}
-		else
-		{
-			mensaje = mes.meses(mes3);
-			modelView.addObject("mensaje3", mensaje);
-			modelView.addObject("mes3", mes3);
-		}
+		mes.setMes3(mes3);
+		mensaje = mes.meses(mes.getMes3());
+		modelView.addObject("mensaje3", mensaje);
+		modelView.addObject("mes3", mes3);
 		
 		return modelView;
 	}
